@@ -1,0 +1,17 @@
+.star{
+  --left: 50vw;
+  left:var(--left) ;
+  top: 20px;
+  position: absolute;
+  height: 100px;
+  width: 1px;
+  background: #b45;
+}
+
+.redDiv{
+  top: 20px;
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  background: #b45;
+}
