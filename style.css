@@ -1,4 +1,4 @@
-.star{
+/* .star{
   --left: 50vw;
   left:var(--left) ;
   top: 20px;
@@ -6,12 +6,66 @@
   height: 100px;
   width: 1px;
   background: #b45;
+} */
+
+
+
+body {
+  background: #1a1a2a;
+  overflow: hidden;
+  max-height: 90vh;
 }
 
-.redDiv{
+.container {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.star {
+  --left: 50vw;
+  left:var(--left) ;
   top: 20px;
   position: absolute;
-  height: 200px;
-  width: 200px;
+  height: 50px;
+  width: 50px;
   background: #b45;
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+  /* animation-name: rotate;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  transform-origin: center;
+  animation-fill-mode: forwards; */
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateZ(0%);
+    top: -200px;
+    transform-origin: center;
+  }
+
+  50% {
+    top: calc(100vh + 50px);
+    transform: rotateZ(360deg);
+    transform-origin: center;
+  }
+  100% {
+    top: calc(100vh + 50px);
+    transform: rotateZ(360deg);
+    transform-origin: center;
+  }
 }
