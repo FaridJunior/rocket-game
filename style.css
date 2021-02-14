@@ -1,19 +1,20 @@
-/* .star{
-  --left: 50vw;
-  left:var(--left) ;
-  top: 20px;
-  position: absolute;
-  height: 100px;
-  width: 1px;
-  background: #b45;
-} */
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow-y: hidden;
+}
 
-
+.container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
 
 body {
   background: #1a1a2a;
   overflow: hidden;
-  max-height: 90vh;
+  /* max-height: 90vh; */
 }
 
 .container {
@@ -26,7 +27,7 @@ body {
 
 .star {
   --left: 50vw;
-  left:var(--left) ;
+  left: var(--left);
   top: 20px;
   position: absolute;
   height: 50px;
@@ -44,28 +45,36 @@ body {
     2% 35%,
     39% 35%
   );
-  /* animation-name: rotate;
+  animation-name: rotate;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   transform-origin: center;
-  animation-fill-mode: forwards; */
+  animation-duration: 2s;
 }
 
 @keyframes rotate {
   0% {
     transform: rotateZ(0%);
-    top: -200px;
-    transform-origin: center;
   }
 
-  50% {
-    top: calc(100vh + 50px);
-    transform: rotateZ(360deg);
-    transform-origin: center;
-  }
   100% {
-    top: calc(100vh + 50px);
     transform: rotateZ(360deg);
-    transform-origin: center;
   }
+}
+
+.rocket {
+  display: inline-block;
+  position: absolute;
+  z-index: 200;
+  /* opacity: 0; */
+}
+
+.score {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 3rem;
+  color: #b45;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
 }
