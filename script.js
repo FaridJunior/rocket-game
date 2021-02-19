@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const scoreDisplay = document.querySelector("#score");
   const container = document.querySelector(".container");
+  const startBtn = document.querySelector("#start");
+
   class Rocket {
     constructor(
       location = { x: window.innerWidth / 2 - 40, y: window.innerHeight - 130, z: 0 },
@@ -63,7 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-
   class Star {
     constructor(location = { x: 0, y: -50, z: 0 }, size = { width: 0, height: 0 }, speed = 10) {
       this.location = location;
@@ -233,8 +234,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // setInterval(() => console.log(stars[2]), 2000)
     // setTimeout(removeStars , 6000)
   }
-
-  main();
+  const gameMusic = new Audio("./game-music.mp4");
+  startBtn.addEventListener("click", () => {
+    main();
+    gameMusic.play();
+  });
+  // main();
 
   //  assets
   function getRandomInt(min, max) {
