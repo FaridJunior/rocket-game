@@ -181,6 +181,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       endGame: function () {
         this.stop();
+        gameMusic.pause();
+
         alert(`score : ${this.score}`);
         location.reload();
       },
@@ -234,10 +236,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // setInterval(() => console.log(stars[2]), 2000)
     // setTimeout(removeStars , 6000)
   }
-  const gameMusic = new Audio("./game-music.mp4");
+  const gameMusic = new Audio("./game-music.10 PM");
   startBtn.addEventListener("click", () => {
     main();
     gameMusic.play();
+    startBtn.style.display = "none";
+  });
+  gameMusic.addEventListener("ended", () => {
+    gameMusic.play();
+    gameMusic.playbackRate = gameMusic.playbackRate + 0.1;
   });
   // main();
 
