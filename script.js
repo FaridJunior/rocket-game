@@ -41,10 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     watchLocationX() {
+      if (this.location.x + 58 > window.innerWidth || this.location.x < 0) return;
       this.element.style.left = `${this.location.x}px`;
     }
 
     watchLocationY() {
+      if (this.location.y + 58 > window.innerHeight) return;
       this.element.style.top = `${this.location.y}px`;
     }
 
@@ -78,11 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     watchLocationX() {
-      this.element.style.left = `${this.location.x}px`;
+      this.element.style.transform = `translate(${this.location.x}px,${this.location.y}px)`;
     }
 
     watchLocationY() {
-      this.element.style.top = `${this.location.y}px`;
+      this.element.style.transform = `translate(${this.location.x}px,${this.location.y}px)`;
     }
 
     setLocationX(x) {
@@ -131,6 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
       newStarTime: Math.ceil(1000 / window.innerWidth) * 250,
       work: {},
       score: 0,
+      speed: 24,
 
       rocket: new Rocket(),
 
@@ -138,10 +141,11 @@ document.addEventListener("DOMContentLoaded", () => {
         this.stars.forEach((star, index) => {
           star.moveDown();
 
-          if (this.checkLose(star)) {
-            this.endGame();
-            this.stars.length = 0; // break fro loop
-          }
+          // if (this.checkLose(star)) {
+          //   this.endGame();
+          //   this.stars.length = 0; // break fro loop
+          // }
+
           this.checkIfStarOutOfView(star, index);
         });
       },
@@ -172,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (
           star.location.y + star.size.height > this.rocket.location.y - 10 &&
           star.location.y + star.size.height < this.rocket.location.y + 40 &&
-          star.location.x > this.rocket.location.x &&
+          star.location.x + star.size.width > this.rocket.location.x &&
           star.location.x < this.rocket.location.x + 50
         ) {
           return true;
@@ -200,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       resume: function () {
         this.work.randomStar = setInterval(() => game.createRandomStars(), this.newStarTime);
-        this.work.move = setInterval(() => game.moveStarsDown(), 20);
+        this.work.move = setInterval(() => game.moveStarsDown(), this.speed);
       },
 
       stop: function () {
@@ -208,14 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(this.work.randomStar);
       },
     };
-
-    // function removeStars() {
-    //   for (star of game.stars) {
-    //     star.element.remove();
-    //   }
-    //   delete game.stars;
-    //   console.log(game.stars)
-    // }
 
     function handleMove(evt) {
       evt.preventDefault();
@@ -225,17 +221,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     game.start();
+    setInterval(() => {
+      if (game.speed > 14) {
+        game.speed = game.speed - 1;
+        game.stop();
+        game.resume();
+        console.log(game.speed);
+      }
+    }, 12000);
+
     document.addEventListener("keydown", (e) => game.rocket.handleKeyPress(e));
     document.addEventListener("touchstart", handleMove, false);
     document.addEventListener("touchend", handleMove, false);
     document.addEventListener("touchcancel", handleMove, false);
     document.addEventListener("touchmove", handleMove, false);
-    // const work = setInterval(()=>game.moveStarsDown(), 40)
-    // setInterval(() => restStarsLocations(stars), 16000)
-    // setTimeout(() => game.stop(), 9000);
-    // setInterval(() => console.log(stars[2]), 2000)
-    // setTimeout(removeStars , 6000)
   }
+
   const gameMusic = new Audio("./game-music.10 PM");
   startBtn.addEventListener("click", () => {
     main();
@@ -244,9 +245,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   gameMusic.addEventListener("ended", () => {
     gameMusic.play();
-    gameMusic.playbackRate = gameMusic.playbackRate + 0.1;
+    gameMusic.playbackRate = gameMusic.playbackRate + 0.25;
   });
-  // main();
 
   //  assets
   function getRandomInt(min, max) {
